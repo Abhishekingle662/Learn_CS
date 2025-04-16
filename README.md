@@ -6,4 +6,4 @@ This will be a repo for CS-related problems and issues such as setting up a Cond
 
 - [🚀 GPU Setup for Jupyter Notebook](setting_up_jupyter_for_gpu_use.md)
 - [📦 How to Set Up a Conda Environment](conda_env_tutorial.md)
-- [🌐 Setting Up a Virtual Environment in Python](setting_up_virtual_env_using_python.md.md)
+- [🌐 Setting Up a Virtual Environment in Python](setting_up_virtual_env_using_python.md)
