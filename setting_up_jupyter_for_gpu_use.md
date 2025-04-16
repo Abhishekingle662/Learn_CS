@@ -140,3 +140,4 @@ If `True`, your environment is GPU-enabled. 🎉
 
 Once you configure the versions of CUDA, cudnn and jupyter, you go over steps 7 and 8 again and you should find your notebook running on GPU.
 
+![screenshot](Screenshot.png)
