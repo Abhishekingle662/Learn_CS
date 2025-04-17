@@ -148,11 +148,9 @@ You’ll see:
 
 ---
 
-## 🛠️ Next Steps
+## 🛠️ Output
 
-- Add class name mapping for CIFAR-10 or ImageNet
-- Try on real-world misclassified examples
-- Deploy as a Streamlit app for interactive exploration
+![output](output.png)
 
 ---
 
