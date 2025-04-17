@@ -41,6 +41,8 @@ import matplotlib.pyplot as plt
 ### 🔧 GradCAMPlusPlus Class
 
 ```python
+
+
 class GradCAMPlusPlus:
     def __init__(self, model, target_layer):
         self.model = model.eval()
@@ -70,8 +72,8 @@ class GradCAMPlusPlus:
         class_score = output[0, class_idx]
         class_score.backward(retain_graph=True)
 
-        grads = self.gradients[0]
-        activations = self.activations[0]
+        grads = self.gradients[0]              # (C, H, W)
+        activations = self.activations[0]      # (C, H, W)
         grads_power_2 = grads ** 2
         grads_power_3 = grads ** 3
 
@@ -81,19 +83,23 @@ class GradCAMPlusPlus:
         alpha_denom = grads_power_2.mul(2) + sum_activations * grads_power_3
         alpha_denom = torch.where(alpha_denom != 0.0, alpha_denom, torch.ones_like(alpha_denom) * eps)
         alphas = alpha_numer / alpha_denom
-        weights = torch.sum(alphas * F.relu(grads), dim=(1, 2))
+        weights = torch.sum(alphas * F.relu(grads), dim=(1, 2))  # (C,)
 
+        # Weight the activations
         heatmap = torch.sum(weights[:, None, None] * activations, dim=0).cpu().detach().numpy()
         heatmap = np.maximum(heatmap, 0)
         heatmap = (heatmap - heatmap.min()) / (heatmap.max() - heatmap.min() + eps)
 
         return heatmap, class_idx
 
+
     def visualize(self, heatmap, original_image, class_idx, colormap=cv2.COLORMAP_JET):
+        # Resize heatmap to match image size
         heatmap_resized = cv2.resize(heatmap, (original_image.shape[1], original_image.shape[0]))
         heatmap_colored = cv2.applyColorMap(np.uint8(255 * heatmap_resized), colormap)
         overlay = cv2.addWeighted(original_image, 0.5, heatmap_colored, 0.5, 0)
 
+        # Plot
         plt.figure(figsize=(12, 4))
         plt.subplot(1, 3, 1)
         plt.imshow(original_image)
@@ -101,12 +107,13 @@ class GradCAMPlusPlus:
 
         plt.subplot(1, 3, 2)
         plt.imshow(heatmap_resized, cmap='jet')
-        plt.title("Grad-CAM++ Heatmap")
+        plt.title("Grad-CAM")
 
         plt.subplot(1, 3, 3)
         plt.imshow(overlay)
         plt.title(f"Overlay (Predicted Class: {class_idx})")
         plt.show()
+
 ```
 
 ---
@@ -114,16 +121,12 @@ class GradCAMPlusPlus:
 ## 🧪 Example Usage
 
 ```python
-# Example: using ResNet18 and CIFAR-10 image
 gradcam_pp = GradCAMPlusPlus(model, target_layer=model.layer2[1].conv2)
 heatmap, class_idx = gradcam_pp.generate_heatmap(input_tensor)
 
-# Reconstruct original image from tensor
-input_np = input_tensor.squeeze().cpu().numpy().transpose(1, 2, 0)
-input_np = (input_np * 0.5 + 0.5) * 255
-original_img = input_np.astype(np.uint8)
+# Visualize same as before using `original_img`
+gradcam.visualize(heatmap, original_img, class_idx)
 
-gradcam_pp.visualize(heatmap, original_img, class_idx)
 ```
 
 ---
