@@ -5,9 +5,9 @@ This will be a repo for CS-related problems and issues such as setting up a Cond
 ## 📚 Index of Tutorials
 
 - [🚀 GPU Setup for Jupyter Notebook](setting_up_jupyter_for_gpu_use.md)
+- [🔥 Stress testing GPU in jupyter notebook](Testing_GPU_in_Jupyter.ipynb)
 - [🌐 Setting Up a Virtual Environment in Python](setting_up_virtual_env_using_python.md)
 - [🚀 Gradcam plus plus tutorial](GradCAMPlusPlus_Tutorial.md)
-
 
 
 
