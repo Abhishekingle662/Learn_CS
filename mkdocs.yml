@@ -1,8 +1,8 @@
-site_name: Tutorials for CS Stuff
+site_name: CS_Handbook
 theme:
-  name: material
+  name: mkdocs
 nav:
-  - Home: ./docs/README.md
+  - Home: README.md
   # Add more navigation items as needed, e.g.:
   # - Algorithms: algorithms.md
   # - Machine Learning: ml_tutorial.ipynb
