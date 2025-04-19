@@ -1,6 +1,6 @@
 # Tutorials-for-CS-stuff
 
-This will be a repo for CS-related problems and issues such as setting up a Conda environment or setting up a virtual environment using Python. I’ll add those tutorials for future use here. Most of it is AI generated to write clear instructions.
+This will be a repo for CS-related problems and issues such as setting up a Conda environment or setting up a virtual environment using Python. I’ll add those tutorials for future use here.
 
 ## 📚 Index of Tutorials
 
