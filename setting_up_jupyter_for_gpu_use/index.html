@@ -1,0 +1,559 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>Setting up jupyter for gpu use - Tutorials for CS Stuff</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#full-guide-running-jupyter-notebook-on-gpus" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Tutorials for CS Stuff" class="md-header__button md-logo" aria-label="Tutorials for CS Stuff" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tutorials for CS Stuff
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Setting up jupyter for gpu use
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Tutorials for CS Stuff" class="md-nav__button md-logo" aria-label="Tutorials for CS Stuff" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Tutorials for CS Stuff
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-install-anaconda" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Step 1: Install Anaconda
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-install-cuda-toolkit" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Step 2: Install CUDA Toolkit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-install-cudnn-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Step 3: Install cuDNN Library
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-create-a-conda-environment-python-38" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Step 4: Create a Conda Environment (Python 3.8)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-install-required-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Step 5: Install Required Packages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Step 5: Install Required Packages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-tensorflow-keras-gpu-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Option A: TensorFlow + Keras (GPU-enabled)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-pytorch-gpu-enabled-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔥 Option B: PyTorch (GPU-enabled, recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-add-data-science-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      ➕ Optional: Add data science packages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-configure-jupyter-to-use-gpu-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Step 6: Configure Jupyter to Use GPU Environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-launch-jupyter-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Step 7: Launch Jupyter Notebook
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-verify-gpu-is-being-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 8: Verify GPU is Being Used
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Quick Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<hr />
+<h1 id="full-guide-running-jupyter-notebook-on-gpus">✅ Full Guide: Running Jupyter Notebook on GPUs<a class="headerlink" href="#full-guide-running-jupyter-notebook-on-gpus" title="Permanent link">&para;</a></h1>
+<p>This guide helps you set up Jupyter Notebook with GPU support using Anaconda, CUDA, cuDNN, and deep learning libraries like PyTorch or TensorFlow.</p>
+<hr />
+<h2 id="step-1-install-anaconda">⚙️ Step 1: Install Anaconda<a class="headerlink" href="#step-1-install-anaconda" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Download and install from:<br />
+  👉 <a href="https://www.anaconda.com/products/distribution">https://www.anaconda.com/products/distribution</a></p>
+</li>
+<li>
+<p>After installation, launch Jupyter Notebook via:</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>jupyter<span class="w"> </span>notebook
+</code></pre></div>
+
+<p>This opens Jupyter Notebook in your browser.</p>
+<hr />
+<h2 id="step-2-install-cuda-toolkit">⚙️ Step 2: Install CUDA Toolkit<a class="headerlink" href="#step-2-install-cuda-toolkit" title="Permanent link">&para;</a></h2>
+<p>CUDA enables your Python libraries (e.g., TensorFlow, PyTorch) to run on NVIDIA GPUs.</p>
+<ul>
+<li>
+<p>Download from:<br />
+  👉 <a href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a></p>
+</li>
+<li>
+<p>Choose the version that matches:</p>
+</li>
+<li>Your <strong>GPU model</strong></li>
+<li>
+<p>Your <strong>Operating System</strong></p>
+</li>
+<li>
+<p>To verify your GPU details:</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>nvidia-smi
+</code></pre></div>
+
+<hr />
+<h2 id="step-3-install-cudnn-library">⚙️ Step 3: Install cuDNN Library<a class="headerlink" href="#step-3-install-cudnn-library" title="Permanent link">&para;</a></h2>
+<p>cuDNN accelerates deep learning on GPUs.</p>
+<ul>
+<li>
+<p>Download from:<br />
+  👉 <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a></p>
+</li>
+<li>
+<p>Match cuDNN version with your installed CUDA version.</p>
+</li>
+</ul>
+<p>After downloading:
+- Extract the files.
+- Copy <code>bin/</code>, <code>lib/</code>, and <code>include/</code> folders into your CUDA installation directory (usually <code>/usr/local/cuda/</code> on Linux).</p>
+<blockquote>
+<p>⚠️ cuDNN must be manually installed — not via conda/pip.</p>
+</blockquote>
+<hr />
+<h2 id="step-4-create-a-conda-environment-python-38">⚙️ Step 4: Create a Conda Environment (Python 3.8)<a class="headerlink" href="#step-4-create-a-conda-environment-python-38" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>gpu_env<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8
+conda<span class="w"> </span>activate<span class="w"> </span>gpu_env
+</code></pre></div>
+
+<hr />
+<h2 id="step-5-install-required-packages">⚙️ Step 5: Install Required Packages<a class="headerlink" href="#step-5-install-required-packages" title="Permanent link">&para;</a></h2>
+<p>Choose one of the following options depending on your framework preference:</p>
+<h3 id="option-a-tensorflow-keras-gpu-enabled">🧠 Option A: TensorFlow + Keras (GPU-enabled)<a class="headerlink" href="#option-a-tensorflow-keras-gpu-enabled" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>anaconda<span class="w"> </span>tensorflow-gpu<span class="w"> </span>keras-gpu
+</code></pre></div>
+
+<h3 id="option-b-pytorch-gpu-enabled-recommended">🔥 Option B: PyTorch (GPU-enabled, recommended)<a class="headerlink" href="#option-b-pytorch-gpu-enabled-recommended" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>pytorch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">11</span>.8<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia
+</code></pre></div>
+
+<blockquote>
+<p>⚠️ Replace <code>11.8</code> with your actual CUDA version.</p>
+</blockquote>
+<h3 id="optional-add-data-science-packages">➕ Optional: Add data science packages<a class="headerlink" href="#optional-add-data-science-packages" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>numpy<span class="w"> </span>pandas<span class="w"> </span>matplotlib<span class="w"> </span>scikit-learn
+</code></pre></div>
+
+<hr />
+<h2 id="step-6-configure-jupyter-to-use-gpu-environment">⚙️ Step 6: Configure Jupyter to Use GPU Environment<a class="headerlink" href="#step-6-configure-jupyter-to-use-gpu-environment" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>gpu_env<span class="w"> </span>--display-name<span class="w"> </span><span class="s2">&quot;Python (GPU)&quot;</span>
+</code></pre></div>
+
+<p>✅ This registers the environment as <strong>"Python (GPU)"</strong> in the Jupyter kernel list.</p>
+<hr />
+<h2 id="step-7-launch-jupyter-notebook">🚀 Step 7: Launch Jupyter Notebook<a class="headerlink" href="#step-7-launch-jupyter-notebook" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>jupyter<span class="w"> </span>notebook
+</code></pre></div>
+
+<ul>
+<li>Click <strong>New Notebook</strong></li>
+<li>Choose the <strong>"Python (GPU)"</strong> kernel</li>
+</ul>
+<hr />
+<h2 id="step-8-verify-gpu-is-being-used">✅ Step 8: Verify GPU is Being Used<a class="headerlink" href="#step-8-verify-gpu-is-being-used" title="Permanent link">&para;</a></h2>
+<p>Run this in a notebook cell:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>Expected Output:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kc">True</span>
+</code></pre></div>
+
+<p>If <code>True</code>, your environment is GPU-enabled. 🎉</p>
+<hr />
+<h2 id="quick-troubleshooting">🧠 Quick Troubleshooting<a class="headerlink" href="#quick-troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>torch.cuda.is_available()</code> is <code>False</code></td>
+<td>Make sure CUDA and cuDNN are properly installed</td>
+</tr>
+<tr>
+<td>Kernel not showing in Jupyter</td>
+<td>Ensure you ran the <code>ipykernel install</code> command</td>
+</tr>
+<tr>
+<td>Version mismatch / compatibility</td>
+<td>Match TensorFlow or PyTorch to your CUDA version</td>
+</tr>
+<tr>
+<td>Model runs slow</td>
+<td>Check if code is accidentally running on CPU (<code>torch.device("cuda")</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Once you configure the versions of CUDA, cudnn and jupyter, you go over steps 7 and 8 again and you should find your notebook running on GPU.</p>
+<p><img alt="screenshot" src="../Screenshot.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

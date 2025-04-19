@@ -1,0 +1,746 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>🧠 Understanding Python Dictionaries - Tutorials for CS Stuff</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#understanding-python-dictionaries" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Tutorials for CS Stuff" class="md-header__button md-logo" aria-label="Tutorials for CS Stuff" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tutorials for CS Stuff
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🧠 Understanding Python Dictionaries
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Tutorials for CS Stuff" class="md-nav__button md-logo" aria-label="Tutorials for CS Stuff" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Tutorials for CS Stuff
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-a-python-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      📘 What Is a Python Dictionary?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-dictionaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Creating Dictionaries
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Creating Dictionaries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-using-curly-braces" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Using Curly Braces {}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-using-the-dict-constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Using the dict() Constructor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-creating-an-empty-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Creating an Empty Dictionary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-and-modifying-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Accessing and Modifying Items
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Accessing and Modifying Items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accessing-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessing Values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-or-updating-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding or Updating Items
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removing-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removing Items
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterating-through-a-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Iterating Through a Dictionary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Iterating Through a Dictionary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iterating-over-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iterating Over Keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterating-over-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iterating Over Values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterating-over-key-value-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iterating Over Key-Value Pairs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-dictionary-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧰 Useful Dictionary Methods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dictionary-comprehensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Dictionary Comprehensions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Practical Example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Further Learning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-python-dictionary-techniques-in-leetcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Advanced Python Dictionary Techniques in LeetCode
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Advanced Python Dictionary Techniques in LeetCode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-hash-maps-for-constant-time-lookups" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Hash Maps for Constant-Time Lookups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-counting-frequencies-with-collectionscounter" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Counting Frequencies with collections.Counter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-grouping-anagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Grouping Anagrams
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-sliding-window-with-hash-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Sliding Window with Hash Maps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-topological-sorting-with-dictionaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Topological Sorting with Dictionaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-dynamic-programming-with-memoization" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Dynamic Programming with Memoization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="understanding-python-dictionaries">🧠 Understanding Python Dictionaries<a class="headerlink" href="#understanding-python-dictionaries" title="Permanent link">&para;</a></h1>
+<p>Python dictionaries are a fundamental and powerful data structure that allows you to store and manipulate data using key-value pairs.</p>
+<h2 id="what-is-a-python-dictionary">📘 What Is a Python Dictionary?<a class="headerlink" href="#what-is-a-python-dictionary" title="Permanent link">&para;</a></h2>
+<p>A dictionary in Python is a mutable, unordered collection of items. Each item consists of a key and its associated value. Keys must be unique and immutable (like strings, numbers, or tuples), while values can be of any data type.</p>
+<p>Think of a real-world dictionary: you look up a word (the key) to find its definition (the value). Similarly, in Python:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">my_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;New York&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Here, <code>"name"</code>, <code>"age"</code>, and <code>"city"</code> are keys, and their corresponding values are <code>"Alice"</code>, <code>30</code>, and <code>"New York"</code>.</p>
+<h2 id="creating-dictionaries">🛠️ Creating Dictionaries<a class="headerlink" href="#creating-dictionaries" title="Permanent link">&para;</a></h2>
+<h3 id="1-using-curly-braces">1. Using Curly Braces <code>{}</code><a class="headerlink" href="#1-using-curly-braces" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">person</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">}</span>
+</code></pre></div>
+
+<h3 id="2-using-the-dict-constructor">2. Using the <code>dict()</code> Constructor<a class="headerlink" href="#2-using-the-dict-constructor" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">person</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="3-creating-an-empty-dictionary">3. Creating an Empty Dictionary<a class="headerlink" href="#3-creating-an-empty-dictionary" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">empty_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># or</span>
+<span class="n">empty_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="accessing-and-modifying-items">🔍 Accessing and Modifying Items<a class="headerlink" href="#accessing-and-modifying-items" title="Permanent link">&para;</a></h2>
+<h3 id="accessing-values">Accessing Values<a class="headerlink" href="#accessing-values" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">person</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>  <span class="c1"># Outputs: Bob</span>
+</code></pre></div>
+
+<h3 id="adding-or-updating-items">Adding or Updating Items<a class="headerlink" href="#adding-or-updating-items" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">person</span><span class="p">[</span><span class="s2">&quot;city&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Los Angeles&quot;</span>  <span class="c1"># Adds a new key-value pair</span>
+<span class="n">person</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">26</span>              <span class="c1"># Updates the existing value</span>
+</code></pre></div>
+
+<h3 id="removing-items">Removing Items<a class="headerlink" href="#removing-items" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">del</span> <span class="n">person</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span>               <span class="c1"># Removes the key &#39;age&#39;</span>
+<span class="n">city</span> <span class="o">=</span> <span class="n">person</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;city&quot;</span><span class="p">)</span>       <span class="c1"># Removes &#39;city&#39; and returns its value</span>
+</code></pre></div>
+
+<h2 id="iterating-through-a-dictionary">🔄 Iterating Through a Dictionary<a class="headerlink" href="#iterating-through-a-dictionary" title="Permanent link">&para;</a></h2>
+<h3 id="iterating-over-keys">Iterating Over Keys<a class="headerlink" href="#iterating-over-keys" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">person</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="iterating-over-values">Iterating Over Values<a class="headerlink" href="#iterating-over-values" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">person</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="iterating-over-key-value-pairs">Iterating Over Key-Value Pairs<a class="headerlink" href="#iterating-over-key-value-pairs" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">person</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="useful-dictionary-methods">🧰 Useful Dictionary Methods<a class="headerlink" href="#useful-dictionary-methods" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>get(key, default)</code> – Returns the value for <code>key</code> if <code>key</code> is in the dictionary; otherwise, returns <code>default</code>.</li>
+<li><code>keys()</code> – Returns a view object of all keys.</li>
+<li><code>values()</code> – Returns a view object of all values.</li>
+<li><code>items()</code> – Returns a view object of all key-value pairs.</li>
+<li><code>update(other_dict)</code> – Updates the dictionary with key-value pairs from <code>other_dict</code>.</li>
+<li><code>clear()</code> – Removes all items from the dictionary.</li>
+</ul>
+<h2 id="dictionary-comprehensions">🧠 Dictionary Comprehensions<a class="headerlink" href="#dictionary-comprehensions" title="Permanent link">&para;</a></h2>
+<p>Dictionary comprehensions provide a concise way to create dictionaries:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">squares</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">squares</span><span class="p">)</span>  <span class="c1"># Outputs: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</span>
+</code></pre></div>
+
+<p>You can also add conditions:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">even_squares</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">}</span>
+</code></pre></div>
+
+<h2 id="practical-example">🧪 Practical Example<a class="headerlink" href="#practical-example" title="Permanent link">&para;</a></h2>
+<p>Let's say you have a list of fruits and their quantities:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">fruits</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="n">fruit_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">fruits</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fruit_dict</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This will output:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="s1">&#39;apple&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+</code></pre></div>
+
+<h2 id="further-learning">📚 Further Learning<a class="headerlink" href="#further-learning" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://realpython.com/python-dicts/?utm_source=chatgpt.com">Dictionaries in Python</a></li>
+<li><a href="https://www.dataquest.io/blog/python-dictionaries/?utm_source=chatgpt.com">Python Dictionaries: A Comprehensive Tutorial (with 52 Code Examples)</a></li>
+<li><a href="https://realpython.com/python-dictionary-comprehension/?utm_source=chatgpt.com">Python Dictionary Comprehensions: How and When to Use Them</a></li>
+<li><a href="https://www.youtube.com/watch?v=daefaLgNkw0&amp;utm_source=chatgpt.com">Python Tutorial for Beginners 5: Dictionaries</a></li>
+</ul>
+<hr />
+<h2 id="advanced-python-dictionary-techniques-in-leetcode">🧠 Advanced Python Dictionary Techniques in LeetCode<a class="headerlink" href="#advanced-python-dictionary-techniques-in-leetcode" title="Permanent link">&para;</a></h2>
+<p>Python dictionaries are versatile tools in solving complex algorithmic problems. Below are advanced techniques and patterns demonstrating their power:</p>
+<h3 id="1-hash-maps-for-constant-time-lookups">1. Hash Maps for Constant-Time Lookups<a class="headerlink" href="#1-hash-maps-for-constant-time-lookups" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Two Sum<br />
+<strong>Concept:</strong> Use a dictionary to store elements and their indices for O(1) lookups.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">two_sum</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">num_map</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+        <span class="n">complement</span> <span class="o">=</span> <span class="n">target</span> <span class="o">-</span> <span class="n">num</span>
+        <span class="k">if</span> <span class="n">complement</span> <span class="ow">in</span> <span class="n">num_map</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">num_map</span><span class="p">[</span><span class="n">complement</span><span class="p">],</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">num_map</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+</code></pre></div>
+
+<h3 id="2-counting-frequencies-with-collectionscounter">2. Counting Frequencies with <code>collections.Counter</code><a class="headerlink" href="#2-counting-frequencies-with-collectionscounter" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Uncommon Words from Two Sentences<br />
+<strong>Concept:</strong> Utilize <code>Counter</code> to count word frequencies efficiently.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">uncommon_from_sentences</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">((</span><span class="n">s1</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">s2</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">count</span> <span class="k">if</span> <span class="n">count</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+
+<h3 id="3-grouping-anagrams">3. Grouping Anagrams<a class="headerlink" href="#3-grouping-anagrams" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Group Anagrams<br />
+<strong>Concept:</strong> Use a dictionary with sorted word tuples as keys to group anagrams.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">group_anagrams</span><span class="p">(</span><span class="n">strs</span><span class="p">):</span>
+    <span class="n">anagrams</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">strs</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">word</span><span class="p">))</span>
+        <span class="n">anagrams</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">anagrams</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</code></pre></div>
+
+<h3 id="4-sliding-window-with-hash-maps">4. Sliding Window with Hash Maps<a class="headerlink" href="#4-sliding-window-with-hash-maps" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Longest Substring Without Repeating Characters<br />
+<strong>Concept:</strong> Maintain a sliding window and use a dictionary to track characters' indices.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">length_of_longest_substring</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">char_index</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">max_length</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">right</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">char_index</span> <span class="ow">and</span> <span class="n">char_index</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">left</span><span class="p">:</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">char_index</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">char_index</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_length</span><span class="p">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">max_length</span>
+</code></pre></div>
+
+<h3 id="5-topological-sorting-with-dictionaries">5. Topological Sorting with Dictionaries<a class="headerlink" href="#5-topological-sorting-with-dictionaries" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Alien Dictionary<br />
+<strong>Concept:</strong> Build adjacency lists and in-degree counts using dictionaries for topological sorting.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">deque</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">alien_order</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+    <span class="n">adj</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+    <span class="n">in_degree</span> <span class="o">=</span> <span class="p">{</span><span class="n">char</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">word</span><span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">first</span><span class="p">,</span> <span class="n">second</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">words</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="k">for</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">c1</span> <span class="o">!=</span> <span class="n">c2</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">c2</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adj</span><span class="p">[</span><span class="n">c1</span><span class="p">]:</span>
+                    <span class="n">adj</span><span class="p">[</span><span class="n">c1</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+                    <span class="n">in_degree</span><span class="p">[</span><span class="n">c2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">second</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">first</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">in_degree</span> <span class="k">if</span> <span class="n">in_degree</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">adj</span><span class="p">[</span><span class="n">c</span><span class="p">]:</span>
+            <span class="n">in_degree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">in_degree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">in_degree</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+</code></pre></div>
+
+<h3 id="6-dynamic-programming-with-memoization">6. Dynamic Programming with Memoization<a class="headerlink" href="#6-dynamic-programming-with-memoization" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Word Break<br />
+<strong>Concept:</strong> Use a dictionary to memoize results of subproblems to avoid redundant computations.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">word_break</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">word_dict</span><span class="p">):</span>
+    <span class="n">memo</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">can_break</span><span class="p">(</span><span class="n">start</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span> <span class="ow">in</span> <span class="n">word_dict</span> <span class="ow">and</span> <span class="n">can_break</span><span class="p">(</span><span class="n">end</span><span class="p">):</span>
+                <span class="n">memo</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="n">memo</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">can_break</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
