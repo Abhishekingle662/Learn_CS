@@ -3,31 +3,35 @@ name: Deploy MkDocs to GitHub Pages
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main  # trigger on pushes to main
 
 permissions:
-  contents: write
+  contents: write    # push to repo
+  pages: write       # update GitHub Pages
+  id-token: write    # support Pages token flow
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3                             # pull down your repo :contentReference[oaicite:3]{index=3}
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v4                         # install Python for mkdocs :contentReference[oaicite:4]{index=4}
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
-        run: pip install mkdocs-material mkdocs-jupyter
+      - name: Install MkDocs & plugins
+        run: pip install mkdocs-material mkdocs-jupyter       # get mkdocs and jupyter support :contentReference[oaicite:5]{index=5}
 
       - name: Build site
-        run: mkdocs build --clean
+        run: mkdocs build --clean                              # render markdown into ./site/ :contentReference[oaicite:6]{index=6}
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4                   # deploy your ./site/ to gh-pages branch :contentReference[oaicite:7]{index=7}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
+          publish_branch: gh-pages                           # explicitly push to gh-pages :contentReference[oaicite:8]{index=8}
