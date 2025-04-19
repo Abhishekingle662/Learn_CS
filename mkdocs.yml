@@ -1,0 +1,16 @@
+site_name: Tutorials for CS Stuff
+theme:
+  name: material
+nav:
+  - Home: README.md
+  # Add more navigation items as needed, e.g.:
+  # - Algorithms: algorithms.md
+  # - Machine Learning: ml_tutorial.ipynb
+plugins:
+  - search
+  - mkdocs-jupyter
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
