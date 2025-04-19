@@ -8,6 +8,7 @@ This will be a repo for CS-related problems and issues such as setting up a Cond
 - [🔥 Stress testing GPU in jupyter notebook](Testing_GPU_in_Jupyter.ipynb)
 - [🌐 Setting Up a Virtual Environment in Python](setting_up_virtual_env_using_python.md)
 - [🚀 Gradcam plus plus tutorial](GradCAMPlusPlus_Tutorial.md)
+- [🚀 But... what is Github Actions?](github_actions_guide.md)
 
 
 
