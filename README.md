@@ -17,4 +17,5 @@ This will be a repo for CS-related problems and issues such as setting up a Cond
 
 ## 📚 Concepts in Programming:
 
-- [What is OOP in programming (explain using python)](Python_Classes(OOP).ipynb)
+- [What is OOP in programming? (explained using python)](Python_Classes(OOP).ipynb)
+- [What the heck is a dictionary? (explained using python)](dictionary.md)
